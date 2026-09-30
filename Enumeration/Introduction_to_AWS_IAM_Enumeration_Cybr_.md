@@ -16,7 +16,7 @@ Hello pwners! In this lab from cybr.com, we will learn how to enumerate AWS IAM,
 
 First of all, let's authenticate ourselves on the AWS CLI with the credentials that the lab provides.
 
-![[Pasted image 20260929222353.png]]
+<img width="652" height="344" alt="image" src="https://github.com/user-attachments/assets/25e062f6-48df-4165-b1d5-a4c1edfc434c" />
 
 You can find them here.
 
@@ -30,7 +30,7 @@ You can either configure the credentials in a named profile or go without one, b
 
 By the way, the name `enum` isn't fixed; you can set whatever name you want.
 
-![[Pasted image 20260929224355.png]]
+<img width="1285" height="135" alt="image" src="https://github.com/user-attachments/assets/1bba748a-8815-44fe-b2c4-c0e9592932ff" />
 
 Make sure to use `us-east-1` as the region, because the labs on Cybr.com always use this region unless otherwise specified.
 
@@ -46,7 +46,7 @@ aws sts get-caller-identity --profile enum
 
 Remember to pass `--profile <name>` if you used a named profile. Otherwise, the command won't work or, worse, it will use different credentials and return wrong results.
 
-![[Pasted image 20260929224419.png]]
+<img width="1463" height="177" alt="image" src="https://github.com/user-attachments/assets/c1065aef-d2ad-432a-8070-3a7073c88222" />
 
 Look at this output: it contains some useful information.
 
@@ -58,7 +58,7 @@ Now let's enumerate our current user and the other users in this account using t
 aws iam list-users --profile enum
 ```
 
-![[Pasted image 20260930001754.png]]
+<img width="1340" height="814" alt="image" src="https://github.com/user-attachments/assets/a6b811eb-01f2-4c58-b761-604a9a31ef02" />
 
 We have 4 IAM users in this account.
 
@@ -70,7 +70,7 @@ We will start by listing the policies for `Joel`:
 aws iam list-user-policies --user-name Joel --profile enum
 ```
 
-![[Pasted image 20260930003326.png]]
+<img width="1772" height="179" alt="image" src="https://github.com/user-attachments/assets/16c02bd7-2929-4441-975f-507cdaef7f21" />
 
 As you can see, the user `Joel` has an inline policy named `AllowEnumerateRoles`.
 
@@ -80,7 +80,7 @@ Let's dig deeper and get more information about this policy:
 aws iam get-user-policy --user-name Joel --policy-name AllowEnumerateRoles --profile enum
 ```
 
-![[Pasted image 20260930005019.png]]
+<img width="1759" height="548" alt="image" src="https://github.com/user-attachments/assets/3fbee604-2fad-47dd-af96-ce2b28e6a35d" />
 
 Now we can see that this policy permits 4 separate actions:
 
@@ -101,7 +101,7 @@ Let's enumerate the group information:
 aws iam list-groups --profile enum
 ```
 
-![[Pasted image 20260930145004.png]]
+<img width="1362" height="471" alt="image" src="https://github.com/user-attachments/assets/886983f0-16cf-4fe7-81d7-aeb41b6890bf" />
 
 As you can see, there are two groups in this environment:
 
@@ -114,7 +114,7 @@ To find out which groups we are part of, we will use the following command:
 aws iam list-groups-for-user --user-name Joel --profile enum
 ```
 
-![[Pasted image 20260930145420.png]]
+<img width="1693" height="316" alt="image" src="https://github.com/user-attachments/assets/155fd249-9c55-4f16-beed-3fc0d53e455d" />
 
 We are part of the `Developers` group. Let's enumerate this group and dig deeper into its information:
 
@@ -122,7 +122,7 @@ We are part of the `Developers` group. Let's enumerate this group and dig deeper
 aws iam get-group --group-name Developers --profile enum
 ```
 
-![[Pasted image 20260930150257.png]]
+<img width="1651" height="641" alt="image" src="https://github.com/user-attachments/assets/f2bc54ef-9c4c-43a5-8e85-a0a42ab97ee7" />
 
 As you can see, there are two users in the `Developers` group: our user `Joel` and the user `Mike`.
 
@@ -132,7 +132,7 @@ Now let's list the policies attached to this group:
 aws iam list-group-policies --group-name Developers --profile enum
 ```
 
-![[Pasted image 20260930151048.png]]
+<img width="1786" height="176" alt="image" src="https://github.com/user-attachments/assets/a9cdcecb-05ef-4dc7-9656-7d80b295912d" />
 
 The `Developers` group has a policy named `Developers-policy`. Let's find out more about it:
 
@@ -200,7 +200,7 @@ So let's find out if the `Developers` group has any of them:
 aws iam list-attached-group-policies --group-name Developers --profile enum
 ```
 
-![[Pasted image 20260930153212.png]]
+<img width="1599" height="104" alt="image" src="https://github.com/user-attachments/assets/d3bf7e47-3942-4081-afef-4baf1d37ea1c" />
 
 There are none for this group.
 
@@ -210,7 +210,7 @@ If you remember, we have another group called `Infrastructure`. You can apply al
 aws iam list-attached-group-policies --group-name Infrastructure --profile enum
 ```
 
-![[Pasted image 20260930153611.png]]
+<img width="1646" height="311" alt="image" src="https://github.com/user-attachments/assets/9287d697-0e08-45e4-ad46-7cf10949fec2" />
 
 Ah! This time we have attached managed policies!
 
@@ -246,7 +246,7 @@ Let's now find out which inline policy is associated with this role:
 aws iam list-role-policies --role-name SupportRole --profile enum
 ```
 
-![[Pasted image 20260930161649.png]]
+<img width="1511" height="157" alt="image" src="https://github.com/user-attachments/assets/7cd66d56-88b9-46ee-b7d7-8cfb26adda8f" />
 
 We have an inline policy named `AllowS3FullAccessForRole`.
 
@@ -256,7 +256,7 @@ Let's get the content of that inline policy:
 aws iam get-role-policy --role-name SupportRole --policy-name AllowS3FullAccessForRole --profile enum
 ```
 
-![[Pasted image 20260930162406.png]]
+<img width="1914" height="424" alt="image" src="https://github.com/user-attachments/assets/a278c74c-98b0-435e-ace1-2fc8adb2f397" />
 
 The permissions attached to this role include full Amazon S3 access, and that's exactly the kind of thing a threat actor would go after. A wildcard like `s3:*` should raise an immediate red flag for anyone reviewing this environment's security, since it lets the role do anything at all with S3. Permissions this sweeping should be the exception, not the norm.
 
