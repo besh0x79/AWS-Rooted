@@ -20,7 +20,7 @@ Amazon S3, which stands for Simple Storage Service, is AWS's cloud storage offer
 
 First of all, let's authenticate ourselves on the AWS CLI with the credentials that the lab provides.
 
-![[Pasted image 20261001154452.png]]
+<img width="658" height="299" alt="image" src="https://github.com/user-attachments/assets/c69c4c4b-9102-4ecb-b998-00fa71250af4" />
 
 You can find them here.
 
@@ -36,7 +36,7 @@ You can either configure the credentials in a named profile or go without one, b
 
 By the way, the name `enum` isn't fixed; you can set whatever name you want.
 
-![[Pasted image 20261001155018.png]]
+<img width="1347" height="147" alt="image" src="https://github.com/user-attachments/assets/a6b4346f-96c4-4c68-8350-aa0a753211b9" />
 
 Make sure to use `us-east-1` as the region, because the labs on Cybr.com always use this region unless otherwise specified.
 
@@ -54,7 +54,7 @@ aws sts get-caller-identity --profile enum
 
 Remember to pass `--profile <name>` if you used a named profile. Otherwise, the command won't work or, worse, it will use different credentials and return wrong results.
 
-![[Pasted image 20261001155433.png]]
+<img width="1529" height="169" alt="image" src="https://github.com/user-attachments/assets/5d85d256-e952-4437-87be-b112ca2735a6" />
 
 The `ARN` stands for Amazon Resource Name, and it includes the Account ID, which is part of how IAM ARNs are kept unique across all of AWS.
 
@@ -64,7 +64,7 @@ So we're authenticated as a user named `Derek`. Let's start enumerating this use
 aws iam list-user-policies --user-name Derek --profile enum
 ```
 
-![[Pasted image 20261001160002.png]]
+<img width="1744" height="167" alt="image" src="https://github.com/user-attachments/assets/54e5f963-ab65-4127-bab1-9b9d36d51e69" />
 
 And here we go: our user `Derek` has an inline policy named `AllowS3Operations`.
 
@@ -172,7 +172,7 @@ To list the buckets, we will use `s3api`. There is another command set called `s
 aws s3api list-buckets --profile enum
 ```
 
-![[Pasted image 20261001163341.png]]
+<img width="1458" height="473" alt="image" src="https://github.com/user-attachments/assets/a71db71d-4755-4a7a-b4ca-481a33602628" />
 
 As you can see, we have two buckets here:
 
@@ -185,7 +185,7 @@ Let's list the objects in the first bucket. To do that, we will use `list-object
 aws s3api list-objects-v2 --bucket cybr-data-bucket1-874373490618 --profile enum
 ```
 
-![[Pasted image 20261001164111.png]]
+<img width="1873" height="457" alt="image" src="https://github.com/user-attachments/assets/2600f6a6-b3b9-4732-83c7-09e2d1d142f9" />
 
 We got one object stored in this bucket, named `object.txt`. The `Key` field is the object name.
 
@@ -197,7 +197,7 @@ We can even go a step further and download this object, since we have the `s3:Ge
 aws s3api get-object --bucket cybr-data-bucket1-874373490618 --key object.txt ./Objects/object.txt --profile enum
 ```
 
-![[Pasted image 20261001165359.png]]
+<img width="1883" height="251" alt="image" src="https://github.com/user-attachments/assets/8daa08e0-dea6-4230-a5ad-6236f139b20e" />
 
 Here we have 3 required arguments:
 
@@ -207,11 +207,11 @@ Here we have 3 required arguments:
 
 Once the file is downloaded, we can open it like a regular `.txt` file.
 
-![[Pasted image 20261001165628.png]]
+<img width="1900" height="333" alt="image" src="https://github.com/user-attachments/assets/e603efa0-7a1a-458f-b765-f01f238bbdd0" />
 
 And we got the flag ;)
 
-![[Pasted image 20261001165728.png]]
+<img width="659" height="550" alt="image" src="https://github.com/user-attachments/assets/b0d65541-4390-4060-86cd-8874d139afb4" />
 
 ---
 
