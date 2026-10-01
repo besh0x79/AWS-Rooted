@@ -1,6 +1,7 @@
 # Introduction to Amazon S3 Enumeration
 
 Hello pwners, this is Beshoy again, and today we have a new lab from Cybr.com. In today's lab, we will learn how to enumerate Amazon S3, including how to use the AWS S3 CLI, which has unique quirks compared to other AWS services. You'll learn how to list buckets and objects, as well as how to download objects from S3 to your local computer. Enumeration is a critical part of security assessments because it gives us the lay of the land and can help us find potential weaknesses that can be exploited. This lab gives you a safe environment to do exactly that. Capture the flag by submitting the value in `object.txt`.
+[!tip] 🔗 Lab Link Ready to try it yourself? Launch the lab here: Start the Lab on Cybr.com
 
 ## What exactly will we learn?
 
