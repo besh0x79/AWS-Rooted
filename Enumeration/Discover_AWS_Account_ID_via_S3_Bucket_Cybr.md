@@ -4,7 +4,6 @@
 
 Hello pwners, this is Beshoy again, and today we have a new lab from Cybr.com. In today's lab, we will learn how to enumerate AWS account IDs with very limited access to S3 buckets. This lab simulates compromised credentials and makes use of a clever automated tool to reduce guesses from 1 trillion possible combinations down to only 120.
 
-> Lab Link
 > **Ready to try it yourself?** Launch the lab here: [**Start the Lab on Cybr.com**](https://cybr.com/hands-on-labs/lab/discover-aws-account-id-via-s3-bucket/)
 
 ---
