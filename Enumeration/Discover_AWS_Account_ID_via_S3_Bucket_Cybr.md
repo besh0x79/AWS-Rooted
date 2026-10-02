@@ -4,7 +4,7 @@
 
 Hello pwners, this is Beshoy again, and today we have a new lab from Cybr.com. In today's lab, we will learn how to enumerate AWS account IDs with very limited access to S3 buckets. This lab simulates compromised credentials and makes use of a clever automated tool to reduce guesses from 1 trillion possible combinations down to only 120.
 
-> [!tip] Lab Link
+> Lab Link
 > **Ready to try it yourself?** Launch the lab here: [**Start the Lab on Cybr.com**](https://cybr.com/hands-on-labs/lab/discover-aws-account-id-via-s3-bucket/)
 
 ---
@@ -39,7 +39,7 @@ To get started, let's install the tool we'll be using for this lab:
 pip install s3-account-search
 ```
 
-![[Pasted image 20261002143931.png]]
+<img width="1896" height="618" alt="image" src="https://github.com/user-attachments/assets/2eb40fe8-b4e6-4330-8469-0be00336535a" />
 
 **Note:** You may encounter an `externally-managed-environment` error when installing the tool with `pip3` on Kali Linux. You can either create and use a Python virtual environment:
 
@@ -65,7 +65,7 @@ Once the tool is installed, let's configure ourselves.
 
 First of all, let's authenticate ourselves on the AWS CLI with the credentials that the lab provides.
 
-![[Pasted image 20261002145257.png]]
+<img width="711" height="328" alt="image" src="https://github.com/user-attachments/assets/e60088f1-71a1-49cc-87db-d995fb232dee" />
 
 You can find them here.
 
@@ -81,7 +81,7 @@ You can either configure the credentials in a named profile or go without one, b
 
 By the way, the name `enum` isn't fixed; you can set whatever name you want.
 
-![[Pasted image 20261002145508.png]]
+<img width="1347" height="152" alt="image" src="https://github.com/user-attachments/assets/cf7ed0b9-a183-4386-9203-845483aaa3d7" />
 
 Make sure to use `us-east-1` as the region, because the labs on Cybr.com always use this region unless otherwise specified.
 
@@ -107,7 +107,7 @@ Let's cut the noise. When you already know the exact name of the role, you can f
 aws iam list-roles --query "Roles[?RoleName=='S3AccessImages']" --profile enum
 ```
 
-![[Pasted image 20261002152054.png]]
+<img width="1695" height="565" alt="image" src="https://github.com/user-attachments/assets/c8398b85-d91e-486f-a758-1319d0d80f88" />
 
 Copy the ARN value and save it in your notes, since we'll need it again in just a moment.
 
@@ -119,7 +119,7 @@ Let's now see which policies this role has:
 aws iam list-role-policies --role-name S3AccessImages --profile enum
 ```
 
-![[Pasted image 20261002154413.png]]
+<img width="1590" height="169" alt="image" src="https://github.com/user-attachments/assets/f8ed0b11-1455-49ad-8f83-a9eb5fbd6e40" />
 
 As you can see, this role has an inline policy named `AccessS3BucketObjects`. Let's retrieve this policy:
 
@@ -127,7 +127,7 @@ As you can see, this role has an inline policy named `AccessS3BucketObjects`. Le
 aws iam get-role-policy --role-name S3AccessImages --policy-name AccessS3BucketObjects --profile enum
 ```
 
-![[Pasted image 20261002154710.png]]
+<img width="1894" height="501" alt="image" src="https://github.com/user-attachments/assets/af403f51-72e3-41fc-bd31-a9a192bcea3a" />
 
 As you can see here, this role has access to an S3 bucket called `img.cybrlabs.io`.
 
@@ -145,11 +145,11 @@ After that, the tool needs to know which bucket to target, either a bucket name 
 s3-account-search arn:aws:iam::069211227012:role/S3AccessImages s3://img.cybrlabs.io --profile enum
 ```
 
-![[Pasted image 20261002160254.png]]
+<img width="1896" height="348" alt="image" src="https://github.com/user-attachments/assets/af765d47-f471-491e-a5a9-a0eb614eb4d7" />
 
 And there it is: the account ID has been revealed. That's the flag.
 
-![[Pasted image 20261002160642.png]]
+<img width="841" height="734" alt="image" src="https://github.com/user-attachments/assets/fa652cd1-0b20-4886-b082-283e2f99aa82" />
 
 ---
 
