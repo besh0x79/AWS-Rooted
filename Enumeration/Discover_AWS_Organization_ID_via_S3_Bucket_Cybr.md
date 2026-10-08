@@ -4,7 +4,6 @@
 
 Hello pwners, this is Beshoy again, and today we have a new lab from Cybr.com. In today's lab, we will learn how to discover AWS Organization IDs by exploiting limited S3 bucket access. Using an automated approach, this lab demonstrates how to efficiently identify org IDs in just 360 attempts instead of brute-forcing 3.66 quadrillion combinations.
 
-> [!tip] 🔗 Lab Link
 > **Ready to try it yourself?** Launch the lab here: [**Start the Lab on Cybr.com**](https://cybr.com/hands-on-labs/lab/discover-aws-organization-id-via-s3-bucket/)
 
 ---
@@ -47,7 +46,7 @@ git clone https://github.com/plerionhq/conditional-love.git
 
 After cloning the repository, just `cd` into the directory.
 
-![[Pasted image 20261008213915.png]]
+<img width="1061" height="145" alt="image" src="https://github.com/user-attachments/assets/d83078b9-f729-4254-8ec5-7aa5d6b447cd" />
 
 Let's now install the requirements for this tool to run.
 
@@ -69,7 +68,7 @@ Then install the requirements:
 pip install -r requirements.txt
 ```
 
-![[Pasted image 20261008214603.png]]
+<img width="1553" height="376" alt="image" src="https://github.com/user-attachments/assets/8468740a-2369-4508-a897-349e9be3cfe6" />
 
 Then make the script executable:
 
@@ -83,7 +82,7 @@ chmod +x ./conditional-love.py
 
 First of all, let's authenticate ourselves on the AWS CLI with the credentials that the lab provides.
 
-![[Pasted image 20261008215021.png]]
+<img width="781" height="488" alt="image" src="https://github.com/user-attachments/assets/e40a9cd1-b04b-478d-8476-ac8a381819b4" />
 
 You can find them here.
 
@@ -99,7 +98,7 @@ You can either configure the credentials in a named profile or go without one, b
 
 By the way, the name `enum` isn't fixed; you can set whatever name you want.
 
-![[Pasted image 20261008215416.png]]
+<img width="1433" height="120" alt="image" src="https://github.com/user-attachments/assets/f9313da5-8747-448e-ad5a-61117de9ae94" />
 
 Make sure to use `us-east-1` as the region, because the labs on Cybr.com always use this region unless otherwise specified.
 
@@ -127,7 +126,7 @@ aws iam list-roles --query "Roles[?RoleName=='S3AccessImages']" --profile enum
 
 **Note:** I already knew that the role `S3AccessImages` existed from the initial stages of enumeration. In a real engagement, you have to do your own enumeration and find it.
 
-![[Pasted image 20261008220104.png]]
+<img width="1920" height="589" alt="image" src="https://github.com/user-attachments/assets/04aafc25-a4b0-4f83-987b-380d8f7675df" />
 
 Copy the ARN value and save it in your notes, since we'll need it again in just a moment.
 
@@ -141,7 +140,7 @@ Let's now see which policies this role has:
 aws iam list-role-policies --role-name S3AccessImages --profile enum
 ```
 
-![[Pasted image 20261008230707.png]]
+<img width="1877" height="147" alt="image" src="https://github.com/user-attachments/assets/a0578aa3-d1df-419f-ab37-4278b6bc663a" />
 
 As you can see, this role has an inline policy named `AccessS3BucketObjects`. Let's retrieve this policy:
 
@@ -149,7 +148,7 @@ As you can see, this role has an inline policy named `AccessS3BucketObjects`. Le
 aws iam get-role-policy --role-name S3AccessImages --policy-name AccessS3BucketObjects --profile enum
 ```
 
-![[Pasted image 20261008230933.png]]
+<img width="1920" height="522" alt="image" src="https://github.com/user-attachments/assets/b52e5b0d-6054-4d97-b222-7aa41ba76e2e" />
 
 As you can see here, this role has access to an S3 bucket called `img.cybrlabs.io`.
 
@@ -163,11 +162,12 @@ Now that we know the role ARN and the bucket name, we have all the information w
 ./conditional-love.py --role arn:aws:iam::337405469824:role/S3AccessImages --target s3://img.cybrlabs.io/ --action=s3:HeadObject --condition=aws:ResourceOrgID --alphabet="0123456789abcdefghijklmnopqrstuvwxyz-" --profile enum
 ```
 
-![[Pasted image 20261008233112.png]]
+<img width="503" height="276" alt="image" src="https://github.com/user-attachments/assets/3180be3b-fc47-4292-bf77-d81d4aa29ed7" />
+
 
 And there it is: the full ID has been revealed. That's the flag.
 
-![[Pasted image 20261008233303.png]]
+<img width="708" height="855" alt="image" src="https://github.com/user-attachments/assets/9e67e6f5-cde2-4139-a100-78328a8298e7" />
 
 ---
 
