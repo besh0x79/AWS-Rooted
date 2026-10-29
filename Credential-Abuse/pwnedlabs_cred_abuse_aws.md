@@ -1,3 +1,5 @@
+<img width="1536" height="1024" alt="شصس" src="https://github.com/user-attachments/assets/778fe3dc-90aa-4eb4-becf-9009d089a84f" />
+
 hello pwners today we have a great lab form PWNED LABS, this lab brings together two critical perspectives in cybersecurity:
 
 - Red Team: How an individual who has obtained AWS credentials can discover the permissions available to them and exploit excessive privileges to access other services and data.
